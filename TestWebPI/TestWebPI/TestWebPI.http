@@ -1,0 +1,6 @@
+@TestWebPI_HostAddress = http://localhost:5289
+
+GET {{TestWebPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
