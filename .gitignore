@@ -2,7 +2,7 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/TestWebPI/.vs/TestWebPI
-/TestWebPI/TestWebPI/bin/Debug/net8.0
-/TestWebPI/TestWebPI/obj
+/TestWebPI/bin/Debug/net8.0
+/TestWebPI/obj
 *.user
+/.vs/TestWebPI
