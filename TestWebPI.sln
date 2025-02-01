@@ -8,7 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{AB27490C-7B1D-4295-AA29-01F84049633F}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		azure-pipelines.yml = azure-pipelines.yml
+		.circleci\config.yml = .circleci\config.yml
 	EndProjectSection
 EndProject
 Global
