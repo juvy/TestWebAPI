@@ -8,14 +8,14 @@ jobs:
       - checkout # ¼ì³ö´úÂë
       - restore_cache:
           keys:
-            - dotnet-deps-{{ checksum "TestWebPI.csproj" }}
+            - dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
       - run:
           name: Install Dependencies
           command: dotnet restore
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: dotnet-deps-{{ checksum "TestWebPI.csproj" }}
+          key: dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
       - run:
           name: Build Project
           command: dotnet build
@@ -26,7 +26,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-deps-{{ checksum "TestWebPI.csproj" }}
+            - dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
       - run:
           name: Publish Project
           command: dotnet publish -c Release -o ./artifacts
