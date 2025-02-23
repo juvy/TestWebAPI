@@ -3,45 +3,34 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:8.0 # 使用.NET 8.0 SDK镜像，根据你的项目版本调整
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
     steps:
-      - checkout # 检出代码
+      - checkout
       - restore_cache:
           keys:
-            - dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
+            - dotnet-deps-{{ checksum "TestWebPI.sln" }}
       - run:
           name: Install Dependencies
           command: dotnet restore
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
+          key: dotnet-deps-{{ checksum "TestWebPI.sln" }}
       - run:
           name: Build Project
           command: dotnet build
-  deploy:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:8.0
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dotnet-deps-{{ checksum "TestWebPI/TestWebPI.csproj" }}
       - run:
           name: Publish Project
-          command: dotnet publish -c Release -o ./artifacts
+          command: dotnet publish -c Debug -o ./artifacts
       - run:
           name: List DLLs in Artifacts Directory
-          command: find ./artifacts -name "*.dll"
-        # 在这里添加部署到服务器的步骤，例如使用 SSH、FTP 或者其他部署方法
+          command: find ./artifacts -name "*.*"
+      # 在这里添加部署到服务器的步骤，例如使用 SSH、FTP 或者其他部署方法
 workflows:
   version: 2
-  build-deploy:
+  build-and-deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - build:
           filters:
             branches:
-              only: main # 只有在 main 分支上提交时才部署
+              only: main
