@@ -30,8 +30,10 @@ jobs:
       - run:
           name: Publish Project
           command: dotnet publish -c Release -o ./artifacts
-      # 在这里添加部署到服务器的步骤，例如使用 SSH、FTP 或者其他部署方法
-
+      - run:
+          name: List DLLs in Artifacts Directory
+          command: find ./artifacts -name "*.dll"
+        # 在这里添加部署到服务器的步骤，例如使用 SSH、FTP 或者其他部署方法
 workflows:
   version: 2
   build-deploy:
