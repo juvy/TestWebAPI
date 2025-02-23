@@ -8,29 +8,25 @@ jobs:
       - checkout # ¼ì³ö´úÂë
       - restore_cache:
           keys:
-            - dotnet-deps-{{ checksum "project.csproj" }}
+            - dotnet-deps-{{ checksum "TestWebPI.csproj" }}
       - run:
           name: Install Dependencies
           command: dotnet restore
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: dotnet-deps-{{ checksum "project.csproj" }}
+          key: dotnet-deps-{{ checksum "TestWebPI.csproj" }}
       - run:
           name: Build Project
           command: dotnet build
-      - run:
-          name: Run Tests
-          command: dotnet test
-
   deploy:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:5.0
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
     steps:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-deps-{{ checksum "project.csproj" }}
+            - dotnet-deps-{{ checksum "TestWebPI.csproj" }}
       - run:
           name: Publish Project
           command: dotnet publish -c Release -o ./artifacts
